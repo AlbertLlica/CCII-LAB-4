@@ -1,80 +1,81 @@
-#ifdef _LIST_
-#define _LIST_
-#include "Node.h"
-
-class LinkedList {
-    private:
-        int size;
-        int Node *head;
-    public:
-        LinkedList();
-        void insert(int elem );
-        void remove(int pos);
-        bool search(int elem);
-        void print();
-
-        ~LinkedList();
+#ifndef LINKEDLIST
+#define LINKEDLIST
+#include "node.h"
+ 
+template <class T>
+class LinkedList{
+	int size;
+	Node<T> *head;
+	public:
+		LinkedList();
+		~LinkedList();
+		void insert(T);
+		void remove(int);
+		void print();
 };
 
-LinkedList :: LinkedList (){
-    size = 0;
-    head = NULL;
+template<typename T>
+LinkedList<T>::LinkedList(){
+    size=0;
+    head=NULL;
 }
 
-void LinkedList :: insert(int elem){
-    int *nuevo = new int (elemento);
-    int *aux = head;
-    if(!head){
-        head = nuevo;
-    }
-    else{
-        if(head ->elem > elemento){
-            nuevo -> next = head;
+template<typename T>
+void LinkedList<T>::insert(T elemento){
+    Node<T> *nuevo = new Node<T> (elemento);
+    Node<T> *temporal = head;
+    if (!head){
+        head=nuevo;
+    }else{
+        if(head->elem > elemento){
+            nuevo->next = head;
             head = nuevo;
-        }
-        else{
-            while ((aux -> next != NULL) && (aux -> next-> elem <elemento)){
-                aux = aux ->next;
+        }else{
+            while((temporal->next !=NULL)&&(temporal->next->elem < elemento)){
+                temporal = temporal->next;
             }
-            nuevo -> next = aux -> next;
-            aux -> next = nuevo;
+            nuevo->next = temporal->next;
+            temporal->next = nuevo;
         }
     }
     size++;
 }
 
-void LinkedList::remove(int pos){
-    int *temp= head;
-    int *temp1= temp->next;
-
-    if{
+template<typename T>
+void LinkedList<T>::remove(int pos){
+    Node<T> *temporal= head;
+    Node<T> *temporal1= temporal->next;
+    if (pos == 1) head = temporal->next;
+    else {
         for(int i=2; i<=pos;i++){
             if(i==pos){
-                int*aux= temp1;
-                temp->next =temp1->next;
+                Node<T> *aux= temporal1;
+                temporal->next = temporal1->next;
                 delete aux;
                 size--;
             }
-            temp= temp->next;
-            temp1=temp1->next;
+        temporal= temporal->next;
+        temporal1=temporal1->next;
         }
     }
+
 }
 
-void LinkedList :: print(){
-    int *aux = head;
+template<typename T>
+void LinkedList<T>::print(){
+    Node<T> *temporal = head;
     if(!head){
-        std::cout<<"Lista vacía "<<endl;
+        std::cout<<"LISTA VACIA\n";
     }else{
-        while(aux){
-            aux->print();
-            if(!aux->next){ 
-                std::cout<<"NULL";
-                aux = aux->next;
-            }
+        while(temporal){
+            temporal->print();
+                temporal=temporal->next;
         }
     }
-    
+    std::cout<<"\n";
 }
-LinkedList :: ~LinkedList(){}
-#endif
+
+template<typename T>
+LinkedList<T>::~LinkedList(){}
+
+#endif 

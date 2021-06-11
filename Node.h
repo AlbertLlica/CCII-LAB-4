@@ -1,27 +1,37 @@
-#ifdef _NODO_
-#define _NODO_
+#ifndef NODE
+#define NODE
 
-
-class Node {
-
+template <class T>
+class Node
+{          
     public:
         Node();
-        Node(int elemento)
+        Node(T);
         ~Node();
-
-        Node *next;
-        int elem;
         
+        Node *next;
+        T elem;
+        
+        void print();    
 };
-
-Node :: Node(){
+template<typename T>
+Node<T>::Node(){
     elem = NULL;
     next = NULL;
 }
 
-Node :: Node(int elemento){
+template<typename T>
+Node<T>::Node(T elemento){
     elem = elemento;
     next = NULL;
 }
-Node ::  ~Node() {};
-#endif
+
+template<typename T>
+void Node<T>::print(){
+    std::cout<<elem<<", ";
+}
+
+
+template<typename T>
+Node<T>::~Node(){}
+#endif // NODE_H
